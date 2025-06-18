@@ -54,6 +54,8 @@ services:
     volumes:
       - ${WORKSPACE_ROOT:-${HOME}}:/workspace:ro
       - mcp_logs:/tmp  # Shared volume for logs
+      - zen_kb_data:/data/kb  # Knowledge base persistent storage
+      - zen_model_cache:/data/models  # Model cache persistent storage
       - /etc/localtime:/etc/localtime:ro
     stdin_open: true
     tty: true
@@ -79,3 +81,5 @@ services:
 volumes:
   redis_data:
   mcp_logs:
+  zen_kb_data:
+  zen_model_cache:
