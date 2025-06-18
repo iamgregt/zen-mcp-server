@@ -47,6 +47,8 @@ MODEL_CAPABILITIES_DESC = {
     # Gemini models - Available when GEMINI_API_KEY is configured
     "flash": "Ultra-fast (1M context) - Quick analysis, simple queries, rapid iterations",
     "pro": "Deep reasoning + thinking mode (1M context) - Complex problems, architecture, deep analysis",
+    "gemini-2.5-flash": "Ultra-fast (1M context) - Quick analysis, simple queries, rapid iterations",
+    "gemini-2.5-pro": "Deep reasoning + thinking mode (1M context) - Complex problems, architecture, deep analysis",
     # OpenAI models - Available when OPENAI_API_KEY is configured
     "o3": "Strong reasoning (200K context) - Logical problems, code generation, systematic analysis",
     "o3-mini": "Fast O3 variant (200K context) - Balanced performance/speed, moderate complexity",

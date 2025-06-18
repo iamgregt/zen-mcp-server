@@ -6,6 +6,7 @@ from .analyze_prompt import ANALYZE_PROMPT
 from .chat_prompt import CHAT_PROMPT
 from .codereview_prompt import CODEREVIEW_PROMPT
 from .consensus_prompt import CONSENSUS_PROMPT
+from .context_prompt import CONTEXT_PROMPT
 from .debug_prompt import DEBUG_ISSUE_PROMPT
 from .planner_prompt import PLANNER_PROMPT
 from .precommit_prompt import PRECOMMIT_PROMPT
@@ -20,6 +21,7 @@ __all__ = [
     "ANALYZE_PROMPT",
     "CHAT_PROMPT",
     "CONSENSUS_PROMPT",
+    "CONTEXT_PROMPT",
     "PLANNER_PROMPT",
     "PRECOMMIT_PROMPT",
     "REFACTOR_PROMPT",

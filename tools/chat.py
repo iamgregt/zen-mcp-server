@@ -99,7 +99,7 @@ class ChatTool(BaseTool):
                         "researching solutions to complex problems, or when current documentation and "
                         "community insights would enhance the analysis."
                     ),
-                    "default": True,
+                    "default": False,
                 },
                 "continuation_id": {
                     "type": "string",

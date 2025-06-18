@@ -11,6 +11,7 @@ from .test_consensus_conversation import TestConsensusConversation
 from .test_consensus_stance import TestConsensusStance
 from .test_consensus_three_models import TestConsensusThreeModels
 from .test_content_validation import ContentValidationTest
+from .test_context_tool import TestContextTool
 from .test_conversation_chain_validation import ConversationChainValidationTest
 from .test_cross_tool_comprehensive import CrossToolComprehensiveTest
 from .test_cross_tool_continuation import CrossToolContinuationTest
@@ -60,6 +61,7 @@ TEST_REGISTRY = {
     "consensus_conversation": TestConsensusConversation,
     "consensus_stance": TestConsensusStance,
     "consensus_three_models": TestConsensusThreeModels,
+    "context_tool": TestContextTool,
     # "o3_pro_expensive": O3ProExpensiveTest,  # COMMENTED OUT - too expensive to run by default
 }
 
@@ -91,5 +93,6 @@ __all__ = [
     "TestConsensusConversation",
     "TestConsensusStance",
     "TestConsensusThreeModels",
+    "TestContextTool",
     "TEST_REGISTRY",
 ]

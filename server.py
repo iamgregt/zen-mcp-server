@@ -52,6 +52,7 @@ from tools import (
     ChatTool,
     CodeReviewTool,
     ConsensusTool,
+    ContextTool,
     DebugIssueTool,
     ListModelsTool,
     PlannerTool,
@@ -161,6 +162,7 @@ TOOLS = {
     "analyze": AnalyzeTool(),  # General-purpose file and code analysis
     "chat": ChatTool(),  # Interactive development chat and brainstorming
     "consensus": ConsensusTool(),  # Multi-model consensus for diverse perspectives on technical proposals
+    "context": ContextTool(),  # AI Context Management - persistent knowledge across sessions
     "listmodels": ListModelsTool(),  # List all available AI models by provider
     "planner": PlannerTool(),  # A task or problem to plan out as several smaller steps
     "precommit": Precommit(),  # Pre-commit validation of git changes
@@ -195,6 +197,11 @@ PROMPT_TEMPLATES = {
         "name": "chat",
         "description": "Chat and brainstorm ideas",
         "template": "Chat with {model} about this",
+    },
+    "context": {
+        "name": "context",
+        "description": "Manage AI context and knowledge base",
+        "template": "Manage context with {model}",
     },
     "precommit": {
         "name": "precommit",

@@ -168,11 +168,8 @@ if ! docker info &> /dev/null; then
     exit 1
 fi
 
-# Use modern docker compose syntax if available, fall back to docker-compose
+# Always use modern docker compose syntax
 COMPOSE_CMD="docker compose"
-if ! docker compose version &> /dev/null; then
-    COMPOSE_CMD="docker-compose"
-fi
 
 # Check if at least one API key or custom URL is properly configured
 source .env 2>/dev/null || true

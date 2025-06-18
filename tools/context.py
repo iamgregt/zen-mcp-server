@@ -16,12 +16,11 @@ if TYPE_CHECKING:
 
 from config import TEMPERATURE_ANALYTICAL
 from systemprompts import CONTEXT_PROMPT
-from utils.file_utils import ensure_directory_exists
 
 from .base import BaseTool, ToolRequest
 
 # Default knowledge base directory
-DEFAULT_KB_DIR = os.path.expanduser("~/zen-context-kb")
+DEFAULT_KB_DIR = "/tmp/zen-context-kb"
 
 # Field descriptions to avoid duplication
 CONTEXT_FIELD_DESCRIPTIONS = {
@@ -182,9 +181,10 @@ class ContextTool(BaseTool):
     def get_project_dir(self, project_id: str) -> Path:
         """Get project directory, creating if needed"""
         project_dir = self.kb_dir / "projects" / project_id
-        ensure_directory_exists(str(project_dir))
-        ensure_directory_exists(str(project_dir / "entries"))
-        ensure_directory_exists(str(project_dir / ".index"))
+        # Create directories if they don't exist
+        project_dir.mkdir(parents=True, exist_ok=True)
+        (project_dir / "entries").mkdir(parents=True, exist_ok=True)
+        (project_dir / ".index").mkdir(parents=True, exist_ok=True)
         return project_dir
 
     def save_entry(self, entry: KnowledgeEntry) -> str:
@@ -192,8 +192,7 @@ class ContextTool(BaseTool):
         project_dir = self.get_project_dir(entry.project_id)
         entries_dir = project_dir / "entries"
         
-        # Ensure directories exist
-        ensure_directory_exists(str(entries_dir))
+        # Ensure directories exist (already created in get_project_dir)
         
         entry_file = entries_dir / f"{entry.entry_id}.json"
         
@@ -329,7 +328,7 @@ class ContextTool(BaseTool):
         # Save export file
         project_dir = self.get_project_dir(project_id)
         export_dir = project_dir / "exports"
-        ensure_directory_exists(str(export_dir))
+        export_dir.mkdir(parents=True, exist_ok=True)
         
         export_file = export_dir / f"knowledge-export-{datetime.now().strftime('%Y%m%d-%H%M%S')}.json"
         with open(export_file, "w") as f:
