@@ -1,0 +1,210 @@
+{
+  "entries": {
+    "04f28b50-bf03-4d96-aa56-08f9fed85089": {
+      "timestamp": "2025-06-18T19:20:17.066227",
+      "summary": "Testing the MCP context tool functionality - this is a test entry to verify the tool is working corr...",
+      "tags": [
+        "test",
+        "mcp",
+        "context"
+      ],
+      "category": "testing"
+    },
+    "5a24965c-4fe3-47b3-a910-470914242af7": {
+      "timestamp": "2025-06-18T20:26:41.145625",
+      "summary": "Context Tool Storage and Access Flow Analysis\n\nThe MCP Context Tool uses a hybrid storage approach c...",
+      "tags": [
+        "mcp",
+        "context-tool",
+        "storage",
+        "vector-search",
+        "chromadb",
+        "implementation"
+      ],
+      "category": "architecture"
+    },
+    "a37e9811-5cb7-4296-89a3-d4987bee6d8a": {
+      "timestamp": "2025-06-18T20:30:41.030487",
+      "summary": "Understanding Embeddings in MCP Context Tool\n\nEmbedding Process Flow:\n1. Model Loading: SentenceTran...",
+      "tags": [
+        "embeddings",
+        "vector-search",
+        "semantic-search",
+        "mcp",
+        "context-tool",
+        "chromadb",
+        "claude-enhancement"
+      ],
+      "category": "technical-deep-dive"
+    },
+    "15b7a4fc-cbc1-41fb-9e62-e6b5f2c09a1f": {
+      "timestamp": "2025-06-18T20:38:03.676892",
+      "summary": "Investigation: Why \"1024 dimensions\" search returned no results\n\nProblem: Direct search for \"1024 di...",
+      "tags": [
+        "search-issues",
+        "semantic-search",
+        "keyword-extraction",
+        "embeddings",
+        "limitations"
+      ],
+      "category": "debugging"
+    },
+    "56c9afa7-0f49-4d19-963f-14fb411898aa": {
+      "timestamp": "2025-06-18T20:46:28.025158",
+      "summary": "Switching from SentenceTransformer to Gemini-embedding-001\n\nCurrent Setup:\n- Model: intfloat/multili...",
+      "tags": [
+        "embeddings",
+        "gemini",
+        "migration",
+        "vector-search",
+        "api-integration"
+      ],
+      "category": "architecture-decision"
+    },
+    "d147fa88-553e-43ee-99e2-07541b128946": {
+      "timestamp": "2025-06-18T21:36:52.673058",
+      "summary": "Gemini embeddings are a powerful feature for semantic search. The gemini-embedding-exp-03-07 model p...",
+      "tags": [
+        "gemini",
+        "embeddings",
+        "semantic-search",
+        "vector-search"
+      ],
+      "category": "AI/ML"
+    },
+    "3f8f4b76-c102-4bcd-9fef-dea7f0a20c43": {
+      "timestamp": "2025-06-18T21:37:09.664259",
+      "summary": "ChromaDB is a vector database that supports flexible embedding dimensions. In our implementation, we...",
+      "tags": [
+        "chromadb",
+        "vector-database",
+        "embeddings",
+        "cosine-similarity"
+      ],
+      "category": "Database"
+    },
+    "a50ca1d0-ce3b-4589-b09b-608a64aad11c": {
+      "timestamp": "2025-06-18T21:37:28.139271",
+      "summary": "Rate limiting for Gemini embeddings API is crucial for production stability. The API enforces strict...",
+      "tags": [
+        "rate-limiting",
+        "gemini",
+        "api",
+        "embeddings",
+        "production"
+      ],
+      "category": "API Management"
+    }
+  },
+  "tags": {
+    "test": [
+      "04f28b50-bf03-4d96-aa56-08f9fed85089"
+    ],
+    "mcp": [
+      "04f28b50-bf03-4d96-aa56-08f9fed85089",
+      "5a24965c-4fe3-47b3-a910-470914242af7",
+      "a37e9811-5cb7-4296-89a3-d4987bee6d8a"
+    ],
+    "context": [
+      "04f28b50-bf03-4d96-aa56-08f9fed85089"
+    ],
+    "context-tool": [
+      "5a24965c-4fe3-47b3-a910-470914242af7",
+      "a37e9811-5cb7-4296-89a3-d4987bee6d8a"
+    ],
+    "storage": [
+      "5a24965c-4fe3-47b3-a910-470914242af7"
+    ],
+    "vector-search": [
+      "5a24965c-4fe3-47b3-a910-470914242af7",
+      "a37e9811-5cb7-4296-89a3-d4987bee6d8a",
+      "56c9afa7-0f49-4d19-963f-14fb411898aa",
+      "d147fa88-553e-43ee-99e2-07541b128946"
+    ],
+    "chromadb": [
+      "5a24965c-4fe3-47b3-a910-470914242af7",
+      "a37e9811-5cb7-4296-89a3-d4987bee6d8a",
+      "3f8f4b76-c102-4bcd-9fef-dea7f0a20c43"
+    ],
+    "implementation": [
+      "5a24965c-4fe3-47b3-a910-470914242af7"
+    ],
+    "embeddings": [
+      "a37e9811-5cb7-4296-89a3-d4987bee6d8a",
+      "15b7a4fc-cbc1-41fb-9e62-e6b5f2c09a1f",
+      "56c9afa7-0f49-4d19-963f-14fb411898aa",
+      "d147fa88-553e-43ee-99e2-07541b128946",
+      "3f8f4b76-c102-4bcd-9fef-dea7f0a20c43",
+      "a50ca1d0-ce3b-4589-b09b-608a64aad11c"
+    ],
+    "semantic-search": [
+      "a37e9811-5cb7-4296-89a3-d4987bee6d8a",
+      "15b7a4fc-cbc1-41fb-9e62-e6b5f2c09a1f",
+      "d147fa88-553e-43ee-99e2-07541b128946"
+    ],
+    "claude-enhancement": [
+      "a37e9811-5cb7-4296-89a3-d4987bee6d8a"
+    ],
+    "search-issues": [
+      "15b7a4fc-cbc1-41fb-9e62-e6b5f2c09a1f"
+    ],
+    "keyword-extraction": [
+      "15b7a4fc-cbc1-41fb-9e62-e6b5f2c09a1f"
+    ],
+    "limitations": [
+      "15b7a4fc-cbc1-41fb-9e62-e6b5f2c09a1f"
+    ],
+    "gemini": [
+      "56c9afa7-0f49-4d19-963f-14fb411898aa",
+      "d147fa88-553e-43ee-99e2-07541b128946",
+      "a50ca1d0-ce3b-4589-b09b-608a64aad11c"
+    ],
+    "migration": [
+      "56c9afa7-0f49-4d19-963f-14fb411898aa"
+    ],
+    "api-integration": [
+      "56c9afa7-0f49-4d19-963f-14fb411898aa"
+    ],
+    "vector-database": [
+      "3f8f4b76-c102-4bcd-9fef-dea7f0a20c43"
+    ],
+    "cosine-similarity": [
+      "3f8f4b76-c102-4bcd-9fef-dea7f0a20c43"
+    ],
+    "rate-limiting": [
+      "a50ca1d0-ce3b-4589-b09b-608a64aad11c"
+    ],
+    "api": [
+      "a50ca1d0-ce3b-4589-b09b-608a64aad11c"
+    ],
+    "production": [
+      "a50ca1d0-ce3b-4589-b09b-608a64aad11c"
+    ]
+  },
+  "categories": {
+    "testing": [
+      "04f28b50-bf03-4d96-aa56-08f9fed85089"
+    ],
+    "architecture": [
+      "5a24965c-4fe3-47b3-a910-470914242af7"
+    ],
+    "technical-deep-dive": [
+      "a37e9811-5cb7-4296-89a3-d4987bee6d8a"
+    ],
+    "debugging": [
+      "15b7a4fc-cbc1-41fb-9e62-e6b5f2c09a1f"
+    ],
+    "architecture-decision": [
+      "56c9afa7-0f49-4d19-963f-14fb411898aa"
+    ],
+    "AI/ML": [
+      "d147fa88-553e-43ee-99e2-07541b128946"
+    ],
+    "Database": [
+      "3f8f4b76-c102-4bcd-9fef-dea7f0a20c43"
+    ],
+    "API Management": [
+      "a50ca1d0-ce3b-4589-b09b-608a64aad11c"
+    ]
+  }
+}

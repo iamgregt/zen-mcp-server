@@ -303,24 +303,62 @@ class ChromaProvider(VectorStoreProvider):
         return self._format_get_results(results)
     
     def _extract_keywords(self, text: str) -> List[str]:
-        """Extract keywords for hybrid search"""
-        # Simple keyword extraction (can be enhanced)
-        import re
+        """Extract keywords using Gemini Flash for intelligent understanding"""
+        # Check cache first
+        cache_key = hash(text[:200])  # Use first 200 chars as cache key
+        if hasattr(self, '_keyword_cache') and cache_key in self._keyword_cache:
+            return self._keyword_cache[cache_key]
         
-        # Common English stop words
-        STOP_WORDS = {
-            'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for',
-            'of', 'with', 'by', 'from', 'as', 'is', 'was', 'are', 'been', 'be',
-            'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'should',
-            'could', 'may', 'might', 'must', 'can', 'this', 'that', 'these', 'those'
-        }
+        # Initialize cache if needed
+        if not hasattr(self, '_keyword_cache'):
+            self._keyword_cache = {}
         
-        # Tokenize and clean
-        words = re.findall(r'\b\w+\b', text.lower())
-        keywords = [w for w in words if len(w) > 2 and w not in STOP_WORDS]
+        # Use Gemini Flash for extraction
+        from providers import get_provider
         
-        # Return unique keywords
-        return list(set(keywords))[:50]  # Limit to 50 keywords
+        provider = get_provider("flash")
+        if not provider:
+            raise ValueError("Flash provider not available for keyword extraction")
+        
+        # Create optimized extraction prompt
+        prompt = f"""Extract technical keywords from this text for search indexing.
+
+Text: {text[:1000]}
+
+Requirements:
+- Extract 10-20 most important technical keywords
+- Focus on: programming languages, frameworks, tools, libraries
+- Include: technical concepts, patterns, methodologies
+- Include: specific error types, function names, API endpoints if mentioned
+- Exclude: common words, articles, prepositions
+
+Return ONLY a JSON array, no other text:
+["keyword1", "keyword2", "keyword3"]"""
+        
+        # Call Gemini Flash
+        response = provider.generate(
+            model="gemini-2.0-flash-exp",  # Use latest flash model
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.1,  # Low temperature for consistency
+            max_tokens=200
+        )
+        
+        # Parse response
+        import json
+        content = response.choices[0].message.content.strip()
+        
+        # Extract JSON array from response
+        if "[" in content and "]" in content:
+            start = content.find("[")
+            end = content.rfind("]") + 1
+            keywords = json.loads(content[start:end])
+        else:
+            # If response isn't valid JSON, raise error
+            raise ValueError(f"Invalid keyword extraction response: {content}")
+        
+        # Cache and return result
+        self._keyword_cache[cache_key] = keywords[:20]  # Limit to 20 keywords
+        return keywords[:20]
     
     def _build_where_clause(self, filter_metadata: Optional[dict]) -> Optional[dict]:
         """Build ChromaDB where clause from filter metadata"""

@@ -1,0 +1,23 @@
+{
+  "entry_id": "56c9afa7-0f49-4d19-963f-14fb411898aa",
+  "timestamp": "2025-06-18T20:46:28.025158",
+  "content": "Switching from SentenceTransformer to Gemini-embedding-001\n\nCurrent Setup:\n- Model: intfloat/multilingual-e5-large-instruct (local SentenceTransformer)\n- Dimensions: 1024\n- Max tokens: 514\n- Mean score: 63.22\n- Storage: ~1GB local model\n\nTarget Setup (gemini-embedding-001):\n- Dimensions: 3072 (3x improvement)\n- Max tokens: 2048 (4x improvement)  \n- Mean score: 68.37 (#1 ranked)\n- API-based (no local storage)\n\nImplementation Changes Required:\n\n1. REPLACE EMBEDDING METHOD in chroma_provider.py:\n   - Remove: self.model = SentenceTransformer(...)\n   - Remove: embedding = self.model.encode(text, normalize_embeddings=True)\n   - Add: Use Google provider API for embeddings\n   - Add: provider.get_embedding(text, model='gemini-embedding-001')\n\n2. HANDLE DIMENSION CHANGE:\n   - ChromaDB automatically handles new 3072 dimensions\n   - Existing 1024D embeddings incompatible with new 3072D\n   - Requires re-embedding all existing entries\n\n3. ADD GEMINI EMBEDDING SUPPORT:\n   - Extend Google provider with embedding capability\n   - Handle API authentication (already have Gemini API key)\n   - Implement proper error handling and retries\n\n4. MIGRATION PROCESS:\n   - Phase 1: Add Gemini support alongside existing\n   - Phase 2: Re-embed all content with new model\n   - Phase 3: Remove old SentenceTransformer code\n\nBenefits:\n- 3x more semantic nuance (3072 vs 1024 dimensions)\n- 4x longer text support (2048 vs 514 tokens)\n- Better multilingual support\n- No local model management\n- Automatic model updates by Google\n\nEstimated Work: 4-6 hours total\n- API integration: 2-3 hours\n- Data migration: 1 hour\n- Testing: 1-2 hours",
+  "project_id": "zen-mcp-server",
+  "metadata": {
+    "category": "architecture-decision",
+    "tags": [
+      "embeddings",
+      "gemini",
+      "migration",
+      "vector-search",
+      "api-integration"
+    ],
+    "files": [
+      "/utils/chroma_provider.py"
+    ],
+    "tool_source": "planning",
+    "importance": 0.9
+  },
+  "access_count": 2,
+  "last_accessed": "2025-06-18T22:08:52.754486"
+}

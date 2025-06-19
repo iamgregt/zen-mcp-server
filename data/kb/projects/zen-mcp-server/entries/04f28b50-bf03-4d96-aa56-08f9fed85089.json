@@ -1,0 +1,17 @@
+{
+  "entry_id": "04f28b50-bf03-4d96-aa56-08f9fed85089",
+  "timestamp": "2025-06-18T19:20:17.066227",
+  "content": "Testing the MCP context tool functionality - this is a test entry to verify the tool is working correctly",
+  "project_id": "zen-mcp-server",
+  "metadata": {
+    "category": "testing",
+    "tags": [
+      "test",
+      "mcp",
+      "context"
+    ],
+    "importance": 0.5
+  },
+  "access_count": 2,
+  "last_accessed": "2025-06-18T21:37:47.131301"
+}

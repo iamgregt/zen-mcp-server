@@ -1,0 +1,23 @@
+{
+  "entry_id": "15b7a4fc-cbc1-41fb-9e62-e6b5f2c09a1f",
+  "timestamp": "2025-06-18T20:38:03.676892",
+  "content": "Investigation: Why \"1024 dimensions\" search returned no results\n\nProblem: Direct search for \"1024 dimensions\" returned 0 results despite the entry containing \"1024-dimensional embeddings\"\n\nLikely Causes:\n\n1. **Keyword Extraction Limitations**\n   - The AI keyword extractor (Gemini Flash) might not extract numbers as keywords\n   - It's instructed to focus on \"technical keywords\" like frameworks, tools, concepts\n   - Raw numbers like \"1024\" might be filtered out as non-technical\n\n2. **Semantic Embedding Challenges with Numbers**\n   - Embedding models often struggle with numeric values in isolation\n   - \"1024 dimensions\" creates a very different embedding than \"embedding dimensionality\"\n   - The semantic meaning of a number depends heavily on context\n\n3. **Hybrid Search Scoring**\n   - If neither semantic nor keyword search finds matches, RRF scoring can't help\n   - The query might be too short/specific for good semantic matching\n   - Without the word \"embedding\" or \"vector\", the semantic distance is large\n\n4. **Query vs Content Mismatch**\n   - Stored: \"1024-dimensional embeddings\"\n   - Searched: \"1024 dimensions\"\n   - The hyphenated compound word might affect both keyword and semantic matching\n\nLessons Learned:\n- Numbers alone make poor search queries in semantic systems\n- Context words dramatically improve search accuracy\n- Hybrid search still has limitations with edge cases\n- Consider adding number extraction to keyword processing for technical content",
+  "project_id": "zen-mcp-server",
+  "metadata": {
+    "category": "debugging",
+    "tags": [
+      "search-issues",
+      "semantic-search",
+      "keyword-extraction",
+      "embeddings",
+      "limitations"
+    ],
+    "files": [
+      "/utils/chroma_provider.py"
+    ],
+    "tool_source": "investigation",
+    "importance": 0.7
+  },
+  "access_count": 1,
+  "last_accessed": "2025-06-18T21:38:07.056278"
+}

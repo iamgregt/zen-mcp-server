@@ -1,0 +1,18 @@
+{
+  "entry_id": "3f8f4b76-c102-4bcd-9fef-dea7f0a20c43",
+  "timestamp": "2025-06-18T21:37:09.664259",
+  "content": "ChromaDB is a vector database that supports flexible embedding dimensions. In our implementation, we use cosine similarity for efficient nearest neighbor search. The database can handle collections with different embedding dimensions, making it perfect for migrating from 1024-dimensional SentenceTransformer embeddings to 3072-dimensional Gemini embeddings.",
+  "project_id": "zen-mcp-server",
+  "metadata": {
+    "tags": [
+      "chromadb",
+      "vector-database",
+      "embeddings",
+      "cosine-similarity"
+    ],
+    "category": "Database",
+    "importance": 0.8
+  },
+  "access_count": 3,
+  "last_accessed": "2025-06-18T22:08:52.756138"
+}

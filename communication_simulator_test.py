@@ -37,6 +37,7 @@ Available tests:
     refactor_validation         - Refactor tool validation with codesmells
     debug_validation            - Debug tool validation with actual bugs
     conversation_chain_validation - Conversation chain continuity validation
+    semantic_search             - Semantic search quality and performance validation
 
 Examples:
     # Run all tests

@@ -1,0 +1,18 @@
+{
+  "entry_id": "d147fa88-553e-43ee-99e2-07541b128946",
+  "timestamp": "2025-06-18T21:36:52.673058",
+  "content": "Gemini embeddings are a powerful feature for semantic search. The gemini-embedding-exp-03-07 model provides 3072-dimensional embeddings that capture rich semantic meaning. These embeddings are particularly effective for retrieval tasks, supporting both RETRIEVAL_DOCUMENT and RETRIEVAL_QUERY task types for optimized performance.",
+  "project_id": "zen-mcp-server",
+  "metadata": {
+    "tags": [
+      "gemini",
+      "embeddings",
+      "semantic-search",
+      "vector-search"
+    ],
+    "category": "AI/ML",
+    "importance": 0.9
+  },
+  "access_count": 2,
+  "last_accessed": "2025-06-18T22:08:52.754903"
+}

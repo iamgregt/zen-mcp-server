@@ -1,0 +1,19 @@
+{
+  "entry_id": "a50ca1d0-ce3b-4589-b09b-608a64aad11c",
+  "timestamp": "2025-06-18T21:37:28.139271",
+  "content": "Rate limiting for Gemini embeddings API is crucial for production stability. The API enforces strict limits: 10 requests per minute (RPM) and 1000 requests per day (RPD). Our implementation includes automatic rate limiting with request queuing, daily counter resets, and graceful handling of 429 errors with exponential backoff.",
+  "project_id": "zen-mcp-server",
+  "metadata": {
+    "tags": [
+      "rate-limiting",
+      "gemini",
+      "api",
+      "embeddings",
+      "production"
+    ],
+    "category": "API Management",
+    "importance": 0.85
+  },
+  "access_count": 2,
+  "last_accessed": "2025-06-18T22:08:52.756675"
+}

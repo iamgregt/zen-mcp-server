@@ -29,6 +29,7 @@ from .test_planner_continuation_history import PlannerContinuationHistoryTest
 from .test_planner_validation import PlannerValidationTest
 from .test_redis_validation import RedisValidationTest
 from .test_refactor_validation import RefactorValidationTest
+from .test_semantic_search import TestSemanticSearch
 from .test_testgen_validation import TestGenValidationTest
 from .test_token_allocation_validation import TokenAllocationValidationTest
 from .test_vision_capability import VisionCapabilityTest
@@ -62,6 +63,7 @@ TEST_REGISTRY = {
     "consensus_stance": TestConsensusStance,
     "consensus_three_models": TestConsensusThreeModels,
     "context_tool": TestContextTool,
+    "semantic_search": TestSemanticSearch,
     # "o3_pro_expensive": O3ProExpensiveTest,  # COMMENTED OUT - too expensive to run by default
 }
 
@@ -94,5 +96,6 @@ __all__ = [
     "TestConsensusStance",
     "TestConsensusThreeModels",
     "TestContextTool",
+    "TestSemanticSearch",
     "TEST_REGISTRY",
 ]

@@ -1,0 +1,25 @@
+{
+  "entry_id": "5a24965c-4fe3-47b3-a910-470914242af7",
+  "timestamp": "2025-06-18T20:26:41.145625",
+  "content": "Context Tool Storage and Access Flow Analysis\n\nThe MCP Context Tool uses a hybrid storage approach combining file-based storage with optional vector search capabilities.\n\nStorage Mechanism:\n1. File-Based Storage:\n   - Records stored in ./data/kb/projects/{project_id}/entries/ as individual JSON files\n   - Each entry saved as {entry_id}.json (UUID-based)\n   - Index file at ./data/kb/projects/{project_id}/.index/entries.json tracks all entries\n   - Entry structure includes: entry_id, timestamp, content, project_id, metadata, access_count, last_accessed\n\n2. Vector Store (ChromaDB):\n   - Now hard-coded to always be enabled (previously controlled by ENABLE_VECTOR_SEARCH env var)\n   - Located at ./data/kb/.chroma/\n   - Uses intfloat/multilingual-e5-large-instruct model for embeddings\n   - Enables semantic search and hybrid search capabilities (semantic + keyword with RRF fusion)\n\nData Flow:\n- Adding: save_entry() writes JSON, updates index, adds to vector store\n- Searching: search_entries() performs hybrid search if vector store available, else keyword search\n- List: list_recent_entries() reads from disk, sorts by timestamp\n\nGemini Integration:\n- Gemini doesn't directly access storage - it generates responses based on prompts\n- Tool performs actual storage operations after Gemini generates response\n- Example entries in responses (like KBE-20240729-001) are AI-generated illustrations, not real data\n- Real operations happen in format_response() method after AI response\n\nKey Implementation Details:\n- Default KB directory: ./data/kb (or $STORAGE_DIR if set)\n- Project isolation: Each project has its own subdirectory\n- Metrics tracking: Search latencies, vector operations, failures\n- Access tracking: Each entry tracks access_count and last_accessed timestamp",
+  "project_id": "zen-mcp-server",
+  "metadata": {
+    "category": "architecture",
+    "tags": [
+      "mcp",
+      "context-tool",
+      "storage",
+      "vector-search",
+      "chromadb",
+      "implementation"
+    ],
+    "files": [
+      "/tools/context.py",
+      "/utils/chroma_provider.py"
+    ],
+    "tool_source": "investigation",
+    "importance": 0.8
+  },
+  "access_count": 2,
+  "last_accessed": "2025-06-18T21:38:07.053890"
+}

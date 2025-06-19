@@ -51,6 +51,10 @@ services:
       - USER_HOME=${HOME}
       - LOG_LEVEL=${LOG_LEVEL:-DEBUG}
       - PYTHONUNBUFFERED=1
+      # Enable vector search for semantic search functionality
+      - ENABLE_VECTOR_SEARCH=${ENABLE_VECTOR_SEARCH:-false}
+      # Context tool settings
+      - ZEN_CONTEXT_KB_DIR=${ZEN_CONTEXT_KB_DIR:-/data/kb}
     volumes:
       - ${WORKSPACE_ROOT:-${HOME}}:/workspace:ro
       - mcp_logs:/tmp  # Shared volume for logs

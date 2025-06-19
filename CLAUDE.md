@@ -170,6 +170,7 @@ Available simulator tests include:
 - `refactor_validation` - Refactor tool validation with codesmells
 - `conversation_chain_validation` - Conversation chain and threading validation
 - `consensus_stance` - Consensus tool validation with stance steering (for/against/neutral)
+- `semantic_search` - Semantic search quality, hybrid search, and performance validation
 
 **Note**: All simulator tests should be run individually for optimal testing and better error isolation.
 

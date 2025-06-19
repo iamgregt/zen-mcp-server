@@ -174,3 +174,31 @@ FEATURE_*.md
 
 # Local user instructions
 CLAUDE.local.md
+
+# ChromaDB data directories
+chromadb/
+.chromadb/
+chroma_db/
+*.chroma/
+chroma_data/
+vector_db/
+embeddings_db/
+
+# Model cache directories
+models/
+model_cache/
+.cache/
+huggingface/
+.huggingface/
+sentence_transformers_cache/
+embeddings_cache/
+*.bin
+*.safetensors
+*.onnx
+
+# Migration lock files
+*.lock
+migration.lock
+.migration_lock
+migrations/.lock
+.migration_in_progress

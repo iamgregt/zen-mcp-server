@@ -4,8 +4,10 @@ import base64
 import logging
 import os
 import time
+from datetime import datetime
 from typing import Optional
 
+import numpy as np
 from google import genai
 from google.genai import types
 
@@ -69,6 +71,13 @@ class GeminiModelProvider(ModelProvider):
         super().__init__(api_key, **kwargs)
         self._client = None
         self._token_counters = {}  # Cache for token counting
+
+        # Rate limiter for embeddings API (10 RPM, 1000 RPD)
+        self.embedding_rate_limiter = {
+            'requests': [],  # List of request timestamps
+            'daily_count': 0,
+            'last_reset': datetime.now()
+        }
 
     @property
     def client(self):
@@ -495,3 +504,75 @@ class GeminiModelProvider(ModelProvider):
         except Exception as e:
             logger.error(f"Error processing image {image_path}: {e}")
             return None
+
+    def get_embedding(
+        self,
+        text: str,
+        model: str = "gemini-embedding-exp-03-07",
+        task_type: str = "RETRIEVAL_DOCUMENT"
+    ) -> np.ndarray:
+        """Generate embeddings using Gemini API with rate limiting.
+
+        Args:
+            text: Text to generate embedding for
+            model: Embedding model to use (default: gemini-embedding-exp-03-07)
+            task_type: Either 'RETRIEVAL_DOCUMENT' or 'RETRIEVAL_QUERY'
+
+        Returns:
+            numpy array of the embedding (3072 dimensions for gemini-embedding-exp-03-07)
+        """
+        now = datetime.now()
+
+        # Reset daily counter if needed
+        if (now - self.embedding_rate_limiter['last_reset']).days >= 1:
+            self.embedding_rate_limiter['daily_count'] = 0
+            self.embedding_rate_limiter['last_reset'] = now
+
+        # Check daily limit
+        if self.embedding_rate_limiter['daily_count'] >= 1000:
+            raise RuntimeError("Daily embedding limit (1000) reached")
+
+        # Clean old requests (older than 60 seconds)
+        self.embedding_rate_limiter['requests'] = [
+            req for req in self.embedding_rate_limiter['requests']
+            if (now - req).total_seconds() < 60
+        ]
+
+        # Check rate limit (10 per minute)
+        requests = self.embedding_rate_limiter['requests']
+        if len(requests) >= 10:
+            # Need to wait
+            wait_time = 60 - (now - requests[0]).total_seconds()
+            if wait_time > 0:
+                logger.info(f"Rate limit reached. Waiting {wait_time:.1f} seconds...")
+                time.sleep(wait_time + 0.1)  # Add small buffer
+
+        try:
+            # Use the client API
+            client = self.client
+
+            # Get embedding
+            result = client.models.embed_content(
+                model=model,
+                contents=text,
+                config=types.EmbedContentConfig(task_type=task_type)
+            )
+
+            # Extract embedding from result
+            embedding = np.array(result.embeddings[0].values)
+
+            # Record successful request
+            self.embedding_rate_limiter['requests'].append(now)
+            self.embedding_rate_limiter['daily_count'] += 1
+
+            return embedding
+
+        except Exception as e:
+            if "429" in str(e):
+                logger.warning("Rate limit hit despite protection. Waiting 60 seconds...")
+                time.sleep(60)
+                # Recursive retry
+                return self.get_embedding(text, model, task_type)
+
+            logger.error(f"Failed to get Gemini embedding: {e}")
+            raise RuntimeError(f"Embedding generation failed: {e}")

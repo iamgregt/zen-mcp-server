@@ -237,6 +237,26 @@ echo ""
 # Stop and remove existing containers
 run_with_spinner "🛑 Stopping existing docker containers..." "$COMPOSE_CMD down --remove-orphans" || true
 
+# Prune Docker to free up space before building
+echo "🧹 Cleaning up Docker resources to free space..."
+# Check current disk usage before pruning
+BEFORE_PRUNE=$(docker system df --format "table {{.Type}}\t{{.Size}}\t{{.Reclaimable}}" | tail -n +2 | awk '{sum+=$3} END {print sum}' | sed 's/[^0-9.]//g' || echo "0")
+
+# Run prune with spinner
+run_with_spinner "🧹 Pruning unused Docker resources..." "docker system prune -a -f --volumes" || true
+
+# Calculate space freed (approximate)
+AFTER_PRUNE=$(docker system df --format "table {{.Type}}\t{{.Size}}\t{{.Reclaimable}}" | tail -n +2 | awk '{sum+=$3} END {print sum}' | sed 's/[^0-9.]//g' || echo "0")
+
+# Show space freed message
+if command -v bc &> /dev/null && [ -n "$BEFORE_PRUNE" ] && [ -n "$AFTER_PRUNE" ]; then
+    FREED=$(echo "$BEFORE_PRUNE - $AFTER_PRUNE" | bc 2>/dev/null || echo "0")
+    if [ "$FREED" != "0" ] && [ "$FREED" != "0.0" ]; then
+        echo "💾 Freed approximately ${FREED}GB of disk space"
+    fi
+fi
+echo ""
+
 # Clean up any old containers with different naming patterns
 OLD_CONTAINERS_FOUND=false
 

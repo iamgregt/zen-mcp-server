@@ -19,11 +19,11 @@ from tools.context import ContextTool
 async def test_context_tool():
     """Test basic context tool operations"""
     print("🧪 Testing Context Tool MVP...")
-    
+
     # Initialize tool
     tool = ContextTool()
     print(f"✅ Tool initialized: {tool.get_name()}")
-    
+
     # Test 1: Add operation
     print("\n📝 Test 1: Adding knowledge entry...")
     add_args = {
@@ -33,33 +33,28 @@ async def test_context_tool():
             "tags": ["redis", "debugging", "timeouts"],
             "category": "debugging",
             "tool_source": "debug",
-            "importance": 0.8
+            "importance": 0.8,
         },
         "project_id": "test-project",
-        "model": "flash"  # Use model alias
+        "model": "flash",  # Use model alias
     }
-    
+
     try:
         result = await tool.execute(add_args)
         response = json.loads(result[0].text)
         print(f"✅ Add operation: {response['status']}")
-        if response['status'] == 'success':
+        if response["status"] == "success":
             print(f"   Response preview: {response['content'][:100]}...")
-        elif response['status'] == 'error':
+        elif response["status"] == "error":
             print(f"   Error: {response.get('content', 'Unknown error')}")
     except Exception as e:
         print(f"❌ Add operation failed: {e}")
         return False
-    
+
     # Test 2: List operation
     print("\n📋 Test 2: Listing entries...")
-    list_args = {
-        "operation": "list",
-        "project_id": "test-project",
-        "limit": 5,
-        "model": "flash"
-    }
-    
+    list_args = {"operation": "list", "project_id": "test-project", "limit": 5, "model": "flash"}
+
     try:
         result = await tool.execute(list_args)
         response = json.loads(result[0].text)
@@ -67,7 +62,7 @@ async def test_context_tool():
     except Exception as e:
         print(f"❌ List operation failed: {e}")
         return False
-    
+
     # Test 3: Search operation
     print("\n🔍 Test 3: Searching for 'redis'...")
     search_args = {
@@ -75,9 +70,9 @@ async def test_context_tool():
         "content": "redis timeout",
         "project_id": "test-project",
         "limit": 5,
-        "model": "flash"
+        "model": "flash",
     }
-    
+
     try:
         result = await tool.execute(search_args)
         response = json.loads(result[0].text)
@@ -85,15 +80,11 @@ async def test_context_tool():
     except Exception as e:
         print(f"❌ Search operation failed: {e}")
         return False
-    
+
     # Test 4: Export operation
     print("\n📦 Test 4: Exporting knowledge...")
-    export_args = {
-        "operation": "export",
-        "project_id": "test-project",
-        "model": "flash"
-    }
-    
+    export_args = {"operation": "export", "project_id": "test-project", "model": "flash"}
+
     try:
         result = await tool.execute(export_args)
         response = json.loads(result[0].text)
@@ -101,7 +92,7 @@ async def test_context_tool():
     except Exception as e:
         print(f"❌ Export operation failed: {e}")
         return False
-    
+
     # Check if knowledge base directory was created
     kb_dir = Path(os.path.expanduser("~/zen-context-kb/projects/test-project"))
     if kb_dir.exists():
@@ -113,7 +104,7 @@ async def test_context_tool():
                 print(f"   - {item.relative_to(kb_dir)}")
     else:
         print(f"\n❌ Knowledge base directory not found: {kb_dir}")
-    
+
     print("\n🎉 All basic tests passed! The Context Tool MVP is working.")
     return True
 
